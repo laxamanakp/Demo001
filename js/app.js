@@ -185,7 +185,7 @@ const App = {
             reminders: 'Medication Reminders',
             education: 'Health Education',
             users: 'User Management',
-            facilities: 'Facility Management',
+            facilities: 'MyHubCares Branches',
             profile: 'My Profile',
             reports: 'Reports',
             referrals: 'Patient Referrals',
@@ -597,15 +597,15 @@ const App = {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="required">From Facility</label>
+                        <label class="required">From MyHubCares Branch</label>
                         <select id="fromFacilityId" required>
                             ${facilities.map(f => `<option value="${f.id}" ${f.id === currentUser.facilityId ? 'selected' : ''}>${f.name}</option>`).join('')}
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="required">To Facility</label>
+                        <label class="required">To MyHubCares Branch</label>
                         <select id="toFacilityId" required>
-                            <option value="">Select Facility</option>
+                            <option value="">Select MyHubCares Branch</option>
                             ${facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('')}
                         </select>
                     </div>
@@ -695,16 +695,16 @@ const App = {
                 <label>Patient Name</label>
                 <input type="text" value="${patient ? patient.firstName + ' ' + patient.lastName : 'N/A'}" readonly>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>From Facility</label>
-                    <input type="text" value="${fromFacility ? fromFacility.name : 'N/A'}" readonly>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>From MyHubCares Branch</label>
+                        <input type="text" value="${fromFacility ? fromFacility.name : 'N/A'}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>To MyHubCares Branch</label>
+                        <input type="text" value="${toFacility ? toFacility.name : 'N/A'}" readonly>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>To Facility</label>
-                    <input type="text" value="${toFacility ? toFacility.name : 'N/A'}" readonly>
-                </div>
-            </div>
             <div class="form-row">
                 <div class="form-group">
                     <label>Referral Date</label>

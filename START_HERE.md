@@ -14,7 +14,14 @@ This is your **quick start guide** to run and demo the system.
 - Double-click `index.html` to open in your browser
 - OR right-click → Open with → Chrome/Firefox/Edge
 
-### **Step 2**: Login
+### **Step 2**: Register or Login
+
+#### **Option A: Register as New Patient** ✨ NEW
+- Click "Create Patient Account" button
+- Complete 3-step registration form
+- Get instant access with your new account
+
+#### **Option B: Login with Demo Credentials**
 Choose any role and use these credentials:
 
 | Role | Username | Password |
@@ -37,7 +44,8 @@ Choose any role and use these credentials:
 
 ### **✅ All These Features Work:**
 
-1. ✅ **Patient Management** - Add, view, edit, delete patients
+1. ✅ **Patient Self-Registration** ✨ NEW - 3-step registration with auto-UIC generation
+2. ✅ **Patient Management** - Add, view, edit, delete patients
 2. ✅ **Appointments** - Book with interactive calendar
 3. ✅ **Clinical Visits** - Record vitals, notes, WHO stage
 4. ✅ **Prescriptions** - Create multi-drug prescriptions

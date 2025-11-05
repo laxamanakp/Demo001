@@ -147,7 +147,7 @@ const Auth = {
                 { id: 'referrals', label: 'Referrals', icon: 'share' },
                 { id: 'surveys', label: 'Satisfaction Surveys', icon: 'star' },
                 { id: 'users', label: 'User Management', icon: 'user-plus' },
-                { id: 'facilities', label: 'Facilities', icon: 'building' },
+                { id: 'facilities', label: 'MyHubCares Branches', icon: 'building' },
                 { id: 'reports', label: 'Reports', icon: 'bar-chart' },
                 { id: 'education', label: 'Education', icon: 'book' }
             ],

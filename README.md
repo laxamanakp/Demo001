@@ -137,7 +137,8 @@ A comprehensive HTML/CSS/JavaScript-based sexual health and wellness management 
 
 1. Download or clone this repository
 2. Open `index.html` in your web browser
-3. Login with demo credentials (see below)
+3. **NEW**: Register as a new patient using `register.html` OR
+4. Login with demo credentials (see below)
 
 ### Demo Credentials
 
@@ -167,11 +168,23 @@ Username: patient
 Password: pat123
 ```
 
+### NEW: Patient Self-Registration ✨
+
+Patients can now register themselves:
+1. Click "Create Patient Account" on login page
+2. Fill out 3-step registration form:
+   - **Step 1**: Personal information (name, DOB, sex, civil status)
+   - **Step 2**: Contact details and preferred branch selection
+   - **Step 3**: Account setup (username, password) and consent
+3. Receive auto-generated UIC (Unique Identifier Code)
+4. Login immediately with new credentials
+
 ## 📁 Project Structure
 
 ```
 /
 ├── index.html                      # Login page
+├── register.html                   # Patient registration ✨ NEW
 ├── dashboard.html                  # Main dashboard
 ├── css/
 │   ├── main.css                   # Global styles

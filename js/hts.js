@@ -156,9 +156,9 @@ const HTS = {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="required">Facility</label>
+                    <label class="required">MyHubCares Branch</label>
                     <select id="facilityId" required>
-                        <option value="">Select Facility</option>
+                        <option value="">Select MyHubCares Branch</option>
                         ${facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('')}
                     </select>
                 </div>
@@ -301,7 +301,7 @@ const HTS = {
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Facility</label>
+                    <label>MyHubCares Branch</label>
                     <input type="text" value="${facility ? facility.name : 'N/A'}" readonly>
                 </div>
                 <div class="form-group">

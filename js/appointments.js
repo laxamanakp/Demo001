@@ -264,9 +264,9 @@ const Appointments = {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="required">Facility</label>
+                    <label class="required">MyHubCares Branch</label>
                     <select id="facilityId" required>
-                        <option value="">Select Facility</option>
+                        <option value="">Select MyHubCares Branch</option>
                         ${facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('')}
                     </select>
                 </div>

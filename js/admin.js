@@ -49,7 +49,7 @@ const Admin = {
                                     <th>Full Name</th>
                                     <th>Role</th>
                                     <th>Email</th>
-                                    <th>Facility</th>
+                                    <th>MyHubCares Branch</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -90,7 +90,7 @@ const Admin = {
                     <td>${user.fullName}</td>
                     <td><span class="badge badge-primary">${user.role.replace('_', ' ')}</span></td>
                     <td>${user.email}</td>
-                    <td>${facility ? facility.name : 'N/A'}</td>
+                    <td>${facility ? facility.name : 'No Branch'}</td>
                     <td>
                         <div class="table-actions">
                             <button class="btn btn-sm btn-outline" onclick="Admin.showEditUserModal(${user.id})">
@@ -163,9 +163,9 @@ const Admin = {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="required">Facility</label>
+                        <label class="required">Assigned MyHubCares Branch</label>
                         <select id="facilityId" required>
-                            <option value="">Select Facility</option>
+                            <option value="">Select MyHubCares Branch</option>
                             ${facilities.map(f => `<option value="${f.id}">${f.name}</option>`).join('')}
                         </select>
                     </div>
@@ -255,7 +255,7 @@ const Admin = {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="required">Facility</label>
+                        <label class="required">Assigned MyHubCares Branch</label>
                         <select id="facilityId" required>
                             ${facilities.map(f => `<option value="${f.id}" ${f.id === user.facilityId ? 'selected' : ''}>${f.name}</option>`).join('')}
                         </select>
@@ -353,11 +353,11 @@ const Admin = {
         let html = `
             <div class="patient-list-header">
                 <div>
-                    <h2>Facility Management</h2>
-                    <p>Manage healthcare facilities</p>
+                    <h2>MyHubCares Branch Management</h2>
+                    <p>Manage MyHubCares clinic branches</p>
                 </div>
                 <button class="btn btn-primary" onclick="Admin.showAddFacilityModal()">
-                    Add New Facility
+                    Add New Branch
                 </button>
             </div>
 
@@ -367,7 +367,7 @@ const Admin = {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Facility Name</th>
+                                    <th>MyHubCares Branch</th>
                                     <th>Address</th>
                                     <th>Region</th>
                                     <th>Contact Person</th>
@@ -415,8 +415,8 @@ const Admin = {
         const content = `
             <form id="addFacilityForm">
                 <div class="form-group">
-                    <label class="required">Facility Name</label>
-                    <input type="text" id="facilityName" required>
+                    <label class="required">Branch Name</label>
+                    <input type="text" id="facilityName" required placeholder="e.g., MyHubCares Makati">
                 </div>
                 <div class="form-group">
                     <label class="required">Address</label>
@@ -448,10 +448,10 @@ const Admin = {
 
         const footer = `
             <button class="btn btn-secondary" onclick="App.closeModal()">Cancel</button>
-            <button class="btn btn-primary" onclick="Admin.addFacility()">Add Facility</button>
+            <button class="btn btn-primary" onclick="Admin.addFacility()">Add Branch</button>
         `;
 
-        App.showModal('Add New Facility', content, footer);
+        App.showModal('Add New MyHubCares Branch', content, footer);
     },
 
     // Add facility
@@ -477,7 +477,7 @@ const Admin = {
         localStorage.setItem('facilities', JSON.stringify(facilities));
 
         App.closeModal();
-        App.showSuccess('Facility added successfully');
+        App.showSuccess('MyHubCares branch added successfully');
         App.loadPage('facilities');
     },
 
@@ -497,7 +497,7 @@ const Admin = {
             <form id="editFacilityForm">
                 <input type="hidden" id="facilityId" value="${facility.id}">
                 <div class="form-group">
-                    <label class="required">Facility Name</label>
+                    <label class="required">Branch Name</label>
                     <input type="text" id="facilityName" value="${facility.name}" required>
                 </div>
                 <div class="form-group">
@@ -529,10 +529,10 @@ const Admin = {
 
         const footer = `
             <button class="btn btn-secondary" onclick="App.closeModal()">Cancel</button>
-            <button class="btn btn-primary" onclick="Admin.updateFacility()">Update Facility</button>
+            <button class="btn btn-primary" onclick="Admin.updateFacility()">Update Branch</button>
         `;
 
-        App.showModal('Edit Facility', content, footer);
+        App.showModal('Edit MyHubCares Branch', content, footer);
     },
 
     // Update facility
@@ -565,13 +565,13 @@ const Admin = {
         localStorage.setItem('facilities', JSON.stringify(facilities));
 
         App.closeModal();
-        App.showSuccess('Facility updated successfully');
+        App.showSuccess('MyHubCares branch updated successfully');
         App.loadPage('facilities');
     },
 
     // Delete facility
     deleteFacility(facilityId) {
-        if (!confirm('Are you sure you want to delete this facility?')) {
+        if (!confirm('Are you sure you want to delete this MyHubCares branch?')) {
             return;
         }
 
@@ -579,7 +579,7 @@ const Admin = {
         facilities = facilities.filter(f => f.id !== facilityId);
         localStorage.setItem('facilities', JSON.stringify(facilities));
 
-        App.showSuccess('Facility deleted successfully');
+        App.showSuccess('MyHubCares branch deleted successfully');
         App.loadPage('facilities');
     }
 };
