@@ -179,13 +179,32 @@ Patients can now register themselves:
 3. Receive auto-generated UIC (Unique Identifier Code)
 4. Login immediately with new credentials
 
+📖 **See `PATIENT_REGISTRATION_GUIDE.md` for complete documentation**
+
+### NEW: Mobile App for Patients 📱
+
+MyHubCares now has a dedicated mobile interface optimized for patients:
+1. Open `mobile.html` on your mobile device
+2. Login with patient credentials
+3. Enjoy native app-like experience with:
+   - **Bottom navigation** for easy one-handed use
+   - **Quick actions** - 8 touch-friendly buttons
+   - **Real-time adherence tracking** - circular progress display
+   - **Today's medications** - one-tap "Mark as Taken"
+   - **Upcoming appointments** - at a glance
+   - **Health education** - mobile-optimized
+   - **MyHubCares contact** - tap to call all branches
+   
+📖 **See `MOBILE_APP_GUIDE.md` for complete mobile documentation**
+
 ## 📁 Project Structure
 
 ```
 /
 ├── index.html                      # Login page
-├── register.html                   # Patient registration ✨ NEW
-├── dashboard.html                  # Main dashboard
+├── register.html                   # Patient self-registration ✨ NEW
+├── mobile.html                     # Mobile app for patients ✨ NEW
+├── dashboard.html                  # Main desktop dashboard
 ├── css/
 │   ├── main.css                   # Global styles
 │   ├── components.css             # Reusable components (radio, modals, etc.)

@@ -1,5 +1,5 @@
 // ============================================================
-// MyHubCares - Authentication & RBAC
+// My Hub Cares - Authentication & RBAC
 // ============================================================
 
 const Auth = {
@@ -30,13 +30,34 @@ const Auth = {
                 Notification.requestPermission();
             }
             
+            // Log successful login
+            setTimeout(() => {
+                if (typeof logAudit === 'function') {
+                    const device = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+                    logAudit('login', 'system', 'User logged in successfully', null, 'success', null, null, `Logged in from ${device} as ${role.toUpperCase()}`);
+                }
+            }, 100);
+            
             return true;
         }
+        
+        // Log failed login attempt
+        setTimeout(() => {
+            if (typeof logAudit === 'function') {
+                logAudit('login', 'system', `Failed login attempt for username: ${username}`, null, 'failed', null, null, `Invalid credentials for role: ${role}`);
+            }
+        }, 100);
+        
         return false;
     },
 
     // Logout user
     logout() {
+        // Log logout before clearing session
+        if (typeof logAudit === 'function') {
+            logAudit('logout', 'system', 'User logged out', null, 'success', null, null, 'Session ended');
+        }
+        
         localStorage.removeItem('currentUser');
         window.location.href = 'index.html';
     },
@@ -141,13 +162,15 @@ const Auth = {
                 { id: 'inventory', label: 'Inventory', icon: 'package' },
                 { id: 'prescriptions', label: 'Prescriptions', icon: 'file-text' },
                 { id: 'art-regimen', label: 'ART Regimens', icon: 'pills' },
+                { id: 'vaccinations', label: 'Vaccination Program', icon: 'syringe' },
                 { id: 'lab-tests', label: 'Lab Tests', icon: 'activity' },
                 { id: 'hts', label: 'HTS Sessions', icon: 'test-tube' },
                 { id: 'counseling', label: 'Counseling', icon: 'message-circle' },
                 { id: 'referrals', label: 'Referrals', icon: 'share' },
                 { id: 'surveys', label: 'Satisfaction Surveys', icon: 'star' },
                 { id: 'users', label: 'User Management', icon: 'user-plus' },
-                { id: 'facilities', label: 'MyHubCares Branches', icon: 'building' },
+                { id: 'facilities', label: 'My Hub Cares Branches', icon: 'building' },
+                { id: 'audit', label: 'Audit Trail', icon: 'shield' },
                 { id: 'reports', label: 'Reports', icon: 'bar-chart' },
                 { id: 'education', label: 'Education', icon: 'book' }
             ],
@@ -158,9 +181,11 @@ const Auth = {
                 { id: 'visits', label: 'Clinical Visits', icon: 'clipboard' },
                 { id: 'prescriptions', label: 'Prescriptions', icon: 'file-text' },
                 { id: 'art-regimen', label: 'ART Regimens', icon: 'pills' },
+                { id: 'vaccinations', label: 'Vaccination Program', icon: 'syringe' },
                 { id: 'lab-tests', label: 'Lab Results', icon: 'activity' },
                 { id: 'counseling', label: 'Counseling', icon: 'message-circle' },
                 { id: 'inventory', label: 'Inventory', icon: 'package' },
+                { id: 'audit', label: 'My Activity Log', icon: 'shield' },
                 { id: 'education', label: 'Education', icon: 'book' }
             ],
             nurse: [
@@ -168,9 +193,11 @@ const Auth = {
                 { id: 'patients', label: 'Patients', icon: 'users' },
                 { id: 'appointments', label: 'Appointments', icon: 'calendar' },
                 { id: 'visits', label: 'Clinical Visits', icon: 'clipboard' },
+                { id: 'vaccinations', label: 'Vaccination Program', icon: 'syringe' },
                 { id: 'inventory', label: 'Inventory', icon: 'package' },
                 { id: 'prescriptions', label: 'Prescriptions', icon: 'file-text' },
                 { id: 'hts', label: 'HTS Sessions', icon: 'test-tube' },
+                { id: 'audit', label: 'My Activity Log', icon: 'shield' },
                 { id: 'education', label: 'Education', icon: 'book' }
             ],
             case_manager: [
@@ -180,6 +207,7 @@ const Auth = {
                 { id: 'counseling', label: 'Counseling', icon: 'message-circle' },
                 { id: 'referrals', label: 'Referrals', icon: 'share' },
                 { id: 'hts', label: 'HTS Sessions', icon: 'test-tube' },
+                { id: 'audit', label: 'My Activity Log', icon: 'shield' },
                 { id: 'education', label: 'Education', icon: 'book' }
             ],
             lab_personnel: [
@@ -187,16 +215,19 @@ const Auth = {
                 { id: 'lab-tests', label: 'Lab Tests', icon: 'activity' },
                 { id: 'hts', label: 'HTS Sessions', icon: 'test-tube' },
                 { id: 'patients', label: 'Patients', icon: 'users' },
+                { id: 'audit', label: 'My Activity Log', icon: 'shield' },
                 { id: 'education', label: 'Education', icon: 'book' }
             ],
             patient: [
                 { id: 'dashboard', label: 'My Dashboard', icon: 'home' },
                 { id: 'profile', label: 'My Profile', icon: 'user' },
                 { id: 'appointments', label: 'Appointments', icon: 'calendar' },
+                { id: 'vaccinations', label: 'My Vaccinations', icon: 'syringe' },
                 { id: 'prescriptions', label: 'Prescriptions', icon: 'file-text' },
                 { id: 'reminders', label: 'Medication Reminders', icon: 'bell' },
                 { id: 'lab-results', label: 'Lab Results', icon: 'activity' },
                 { id: 'surveys', label: 'Feedback', icon: 'star' },
+                { id: 'audit', label: 'My Activity Log', icon: 'shield' },
                 { id: 'education', label: 'Health Education', icon: 'book' }
             ]
         };
@@ -222,6 +253,8 @@ const Auth = {
             share: '<circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>',
             clipboard: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>',
             pills: '<circle cx="5.5" cy="11.5" r="4.5"></circle><circle cx="18.5" cy="11.5" r="4.5"></circle><line x1="5.5" y1="7" x2="18.5" y2="7"></line><line x1="5.5" y1="16" x2="18.5" y2="16"></line>',
+            syringe: '<path d="M18 3l3 3-3 3"></path><line x1="21" y1="6" x2="15" y2="12"></line><path d="M12 15l-6 6"></path><path d="M3 21l3-3"></path><line x1="9" y1="18" x2="6" y2="21"></line><line x1="12" y1="15" x2="9" y2="18"></line>',
+            shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
             'test-tube': '<path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5V2"></path><path d="M8.5 2h7"></path><path d="M9 16h6"></path>',
             'message-circle': '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>',
             star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>'

@@ -167,6 +167,12 @@ const App = {
             case 'surveys':
                 Surveys.loadSurveysPage(contentArea);
                 break;
+            case 'vaccinations':
+                Vaccinations.loadVaccinationsPage(contentArea);
+                break;
+            case 'audit':
+                AuditTrail.loadAuditPage(contentArea);
+                break;
             default:
                 contentArea.innerHTML = '<div class="alert alert-warning">Page not found</div>';
         }
@@ -193,9 +199,11 @@ const App = {
             'art-regimen': 'ART Regimen Management',
             hts: 'HIV Testing Services',
             counseling: 'Counseling Sessions',
-            surveys: 'Satisfaction Surveys'
+            surveys: 'Satisfaction Surveys',
+            vaccinations: 'Vaccination Program',
+            audit: 'Audit Trail'
         };
-        return titles[page] || 'MyHubCares';
+        return titles[page] || 'My Hub Cares';
     },
 
     // Load dashboard based on role
@@ -457,9 +465,52 @@ const App = {
     // Load reports page
     loadReportsPage(container) {
         let html = `
-            <div class="card">
+            <div class="dashboard-header">
+                <h2>System Reports</h2>
+                <p>Comprehensive analytics and visualizations</p>
+            </div>
+
+            <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Patient Demographics</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderPatientDemographicsChart()}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Adherence Trends</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderAdherenceChart()}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Inventory Levels</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderInventoryChart()}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Appointment Attendance</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderAppointmentAttendanceChart()}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
                 <div class="card-header">
-                    <h3 class="card-title">System Reports</h3>
+                    <h3 class="card-title">Report Generation</h3>
                 </div>
                 <div class="card-body">
                     <div class="dashboard-grid">
@@ -497,6 +548,143 @@ const App = {
         `;
 
         container.innerHTML = html;
+    },
+
+    // Render patient demographics chart
+    renderPatientDemographicsChart() {
+        const patients = JSON.parse(localStorage.getItem('patients')) || [];
+        const demographics = { male: 0, female: 0, other: 0 };
+
+        patients.forEach(patient => {
+            if (patient.sex === 'M') demographics.male++;
+            else if (patient.sex === 'F') demographics.female++;
+            else demographics.other++;
+        });
+
+        // Add mock data if empty
+        if (demographics.male === 0 && demographics.female === 0) {
+            demographics.male = 8;
+            demographics.female = 7;
+        }
+
+        const data = [
+            { label: 'Male', value: demographics.male },
+            { label: 'Female', value: demographics.female }
+        ].filter(d => d.value > 0);
+
+        return Charts.generatePieChart(data, {
+            width: 300,
+            height: 300,
+            colors: ['#2563eb', '#ec4899'],
+            showLegend: true
+        });
+    },
+
+    // Render adherence chart
+    renderAdherenceChart() {
+        const reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+        const months = [];
+        const now = new Date();
+        
+        // Get last 6 months
+        for (let i = 5; i >= 0; i--) {
+            const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            months.push({
+                label: date.toLocaleDateString('en-US', { month: 'short' }),
+                value: 0
+            });
+        }
+
+        // Calculate adherence rate per month
+        reminders.forEach(reminder => {
+            const reminderDate = new Date(reminder.createdAt || new Date());
+            const monthIndex = months.findIndex(m => {
+                const mDate = new Date(`1 ${m.label} ${now.getFullYear()}`);
+                return mDate.getMonth() === reminderDate.getMonth();
+            });
+            if (monthIndex >= 0) {
+                // Mock adherence rate (70-95%)
+                months[monthIndex].value = Math.floor(Math.random() * 25) + 70;
+            }
+        });
+
+        // Add mock data if empty
+        if (months.every(m => m.value === 0)) {
+            months.forEach((m, i) => {
+                m.value = Math.floor(Math.random() * 25) + 70;
+            });
+        }
+
+        return Charts.generateLineChart(months, {
+            width: 550,
+            height: 250,
+            lineColor: '#10b981',
+            fillColor: '#d1fae5',
+            yMax: 100,
+            title: 'Adherence Rate (%)'
+        });
+    },
+
+    // Render inventory chart
+    renderInventoryChart() {
+        const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+        const topItems = inventory
+            .slice(0, 8)
+            .map(item => ({
+                label: item.drugName.substring(0, 15),
+                value: item.stockQuantity || item.quantity || 0
+            }));
+
+        // Add mock data if empty
+        if (topItems.length === 0) {
+            return '<p class="text-muted">No inventory data available</p>';
+        }
+
+        return Charts.generateBarChart(topItems, {
+            width: 550,
+            height: 250,
+            barColor: '#f59e0b',
+            title: 'Stock Levels'
+        });
+    },
+
+    // Render appointment attendance chart
+    renderAppointmentAttendanceChart() {
+        const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        const statusCounts = {
+            scheduled: 0,
+            completed: 0,
+            cancelled: 0,
+            no_show: 0
+        };
+
+        appointments.forEach(apt => {
+            if (statusCounts.hasOwnProperty(apt.status)) {
+                statusCounts[apt.status]++;
+            }
+        });
+
+        // Add mock data if empty
+        if (statusCounts.scheduled === 0 && statusCounts.completed === 0) {
+            statusCounts.completed = 12;
+            statusCounts.scheduled = 8;
+            statusCounts.cancelled = 3;
+            statusCounts.no_show = 2;
+        }
+
+        const data = [
+            { label: 'Completed', value: statusCounts.completed },
+            { label: 'Scheduled', value: statusCounts.scheduled },
+            { label: 'Cancelled', value: statusCounts.cancelled },
+            { label: 'No Show', value: statusCounts.no_show }
+        ].filter(d => d.value > 0);
+
+        return Charts.generatePieChart(data, {
+            width: 300,
+            height: 300,
+            colors: ['#10b981', '#2563eb', '#f59e0b', '#ef4444'],
+            showLegend: true
+        });
     },
 
     // Load referrals page (Case Manager)

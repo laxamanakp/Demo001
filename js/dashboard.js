@@ -1,5 +1,5 @@
 // ============================================================
-// MyHubCares - Healthcare Worker Dashboard
+// My Hub Cares - Healthcare Worker Dashboard
 // ============================================================
 
 const Dashboard = {
@@ -16,6 +16,44 @@ const Dashboard = {
             </div>
 
             ${this.renderStatistics(stats)}
+
+            <div class="dashboard-grid mt-3" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Patient Enrollment Trend</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderPatientEnrollmentChart()}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Monthly Appointments</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderAppointmentChart()}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Risk Distribution</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderRiskDistributionChart()}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Monthly Prescriptions</h3>
+                    </div>
+                    <div class="card-body">
+                        ${this.renderPrescriptionChart()}
+                    </div>
+                </div>
+            </div>
 
             <div class="card mt-3">
                 <div class="card-header">
@@ -298,6 +336,160 @@ const Dashboard = {
                 </div>
             </div>
         `).join('');
+    },
+
+    // Render patient enrollment chart
+    renderPatientEnrollmentChart() {
+        const patients = JSON.parse(localStorage.getItem('patients')) || [];
+        const months = [];
+        const now = new Date();
+        
+        // Get last 6 months
+        for (let i = 5; i >= 0; i--) {
+            const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            months.push({
+                label: date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+                value: 0
+            });
+        }
+
+        // Count patients per month
+        patients.forEach(patient => {
+            const enrollDate = new Date(patient.enrollmentDate || patient.createdAt || new Date());
+            const monthIndex = months.findIndex(m => {
+                const mDate = new Date(m.label);
+                return mDate.getMonth() === enrollDate.getMonth() && 
+                       mDate.getFullYear() === enrollDate.getFullYear();
+            });
+            if (monthIndex >= 0) {
+                months[monthIndex].value++;
+            }
+        });
+
+        // Add some mock data for demo if empty
+        if (months.every(m => m.value === 0)) {
+            months.forEach((m, i) => {
+                m.value = Math.floor(Math.random() * 8) + 2;
+            });
+        }
+
+        return Charts.generateLineChart(months, {
+            width: 550,
+            height: 250,
+            title: 'Last 6 Months'
+        });
+    },
+
+    // Render appointment chart
+    renderAppointmentChart() {
+        const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        const months = [];
+        const now = new Date();
+        
+        // Get last 6 months
+        for (let i = 5; i >= 0; i--) {
+            const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            months.push({
+                label: date.toLocaleDateString('en-US', { month: 'short' }),
+                value: 0
+            });
+        }
+
+        // Count appointments per month
+        appointments.forEach(apt => {
+            const aptDate = new Date(apt.appointmentDate);
+            const monthIndex = months.findIndex(m => {
+                const mDate = new Date(`1 ${m.label} ${now.getFullYear()}`);
+                return mDate.getMonth() === aptDate.getMonth() && 
+                       mDate.getFullYear() === aptDate.getFullYear();
+            });
+            if (monthIndex >= 0) {
+                months[monthIndex].value++;
+            }
+        });
+
+        // Add mock data if empty
+        if (months.every(m => m.value === 0)) {
+            months.forEach((m, i) => {
+                m.value = Math.floor(Math.random() * 15) + 5;
+            });
+        }
+
+        return Charts.generateBarChart(months, {
+            width: 550,
+            height: 250,
+            barColor: '#10b981',
+            title: 'Last 6 Months'
+        });
+    },
+
+    // Render risk distribution chart
+    renderRiskDistributionChart() {
+        const patients = JSON.parse(localStorage.getItem('patients')) || [];
+        const riskCounts = { low: 0, medium: 0, high: 0, critical: 0 };
+
+        patients.forEach(patient => {
+            const riskScore = ARPA.calculateRiskScore(patient.id);
+            riskCounts[riskScore.level] = (riskCounts[riskScore.level] || 0) + 1;
+        });
+
+        const data = [
+            { label: 'Low', value: riskCounts.low || 5 },
+            { label: 'Medium', value: riskCounts.medium || 3 },
+            { label: 'High', value: riskCounts.high || 2 },
+            { label: 'Critical', value: riskCounts.critical || 1 }
+        ].filter(d => d.value > 0);
+
+        return Charts.generatePieChart(data, {
+            width: 300,
+            height: 300,
+            colors: ['#10b981', '#f59e0b', '#ef4444', '#dc2626'],
+            showLegend: true
+        });
+    },
+
+    // Render prescription chart
+    renderPrescriptionChart() {
+        const prescriptions = JSON.parse(localStorage.getItem('prescriptions')) || [];
+        const months = [];
+        const now = new Date();
+        
+        // Get last 6 months
+        for (let i = 5; i >= 0; i--) {
+            const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            months.push({
+                label: date.toLocaleDateString('en-US', { month: 'short' }),
+                value: 0
+            });
+        }
+
+        // Count prescriptions per month
+        prescriptions.forEach(rx => {
+            const rxDate = new Date(rx.prescriptionDate);
+            const monthIndex = months.findIndex(m => {
+                const mDate = new Date(`1 ${m.label} ${now.getFullYear()}`);
+                return mDate.getMonth() === rxDate.getMonth() && 
+                       mDate.getFullYear() === rxDate.getFullYear();
+            });
+            if (monthIndex >= 0) {
+                months[monthIndex].value++;
+            }
+        });
+
+        // Add mock data if empty
+        if (months.every(m => m.value === 0)) {
+            months.forEach((m, i) => {
+                m.value = Math.floor(Math.random() * 12) + 3;
+            });
+        }
+
+        return Charts.generateLineChart(months, {
+            width: 550,
+            height: 250,
+            lineColor: '#8b5cf6',
+            fillColor: '#f3e8ff',
+            title: 'Last 6 Months'
+        });
     }
 };
 

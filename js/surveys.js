@@ -1,5 +1,5 @@
 // ============================================================
-// MyHubCares - Satisfaction Surveys
+// My Hub Cares - Satisfaction Surveys
 // ============================================================
 
 const Surveys = {
@@ -57,7 +57,9 @@ const Surveys = {
                         <h3 class="card-title">Satisfaction Breakdown</h3>
                     </div>
                     <div class="card-body">
+                        <h4>Overall Satisfaction Rate: ${this.getSatisfactionRate(surveys)}%</h4>
                         ${this.renderSatisfactionChart(surveys)}
+                        ${this.renderSatisfactionBarChart(surveys)}
                     </div>
                 </div>
 
@@ -156,6 +158,41 @@ const Surveys = {
         if (rating >= 3.5) return 'var(--success-color)';
         if (rating >= 2.5) return 'var(--warning-color)';
         return 'var(--danger-color)';
+    },
+
+    // Render satisfaction bar chart
+    renderSatisfactionBarChart(surveys) {
+        if (surveys.length === 0) {
+            return '';
+        }
+
+        const questions = [
+            { id: 'q1', label: 'Service Quality' },
+            { id: 'q2', label: 'Staff Courtesy' },
+            { id: 'q3', label: 'Wait Time' },
+            { id: 'q4', label: 'Facility Cleanliness' },
+            { id: 'q5', label: 'Overall Experience' }
+        ];
+
+        const chartData = questions.map(q => {
+            const avg = surveys.reduce((sum, s) => sum + s[q.id], 0) / surveys.length;
+            return {
+                label: q.label,
+                value: Math.round((avg / 4) * 100)
+            };
+        });
+
+        return `
+            <div style="margin-top: 30px;">
+                <h4 style="margin-bottom: 20px;">Satisfaction Scores by Category</h4>
+                ${Charts.generateBarChart(chartData, {
+                    width: 600,
+                    height: 300,
+                    barColor: '#2563eb',
+                    title: 'Average Satisfaction Scores (%)'
+                })}
+            </div>
+        `;
     },
 
     // Render survey list

@@ -1,5 +1,5 @@
 // ============================================================
-// MyHubCares - Mock Data
+// My Hub Cares - Mock Data
 // ============================================================
 
 const MockData = {
@@ -65,28 +65,28 @@ const MockData = {
     facilities: [
         {
             id: 1,
-            name: 'MyHubCares Ortigas Main',
+            name: 'My Hub Cares Ortigas Main',
             address: 'Unit 607 Tycoon Corporate Center Building, Pearl Drive, Ortigas Center, Pasig City 1605',
             regionId: 1,
             contactPerson: 'Dr. Maria Santos',
-            contactNumber: '0917-187-2273',
+            contactNumber: '0917-187-CARE (2273)',
             email: 'ortigas@myhubcares.com'
         },
         {
             id: 2,
-            name: 'MyHubCares Pasay',
-            address: 'Pasay City, Metro Manila',
+            name: 'My Hub Cares Pasay',
+            address: 'EDSA Corner Taft Avenue, Pasay City',
             regionId: 1,
-            contactPerson: 'Nurse Juan dela Cruz',
+            contactPerson: 'Dr. Jose Cruz',
             contactNumber: '0898-700-1267',
             email: 'pasay@myhubcares.com'
         },
         {
             id: 3,
-            name: 'MyHubCares Alabang',
-            address: 'Alabang, Muntinlupa City',
+            name: 'My Hub Cares Alabang',
+            address: 'Alabang-Zapote Road, Muntinlupa City',
             regionId: 1,
-            contactPerson: 'Dr. Anna Reyes',
+            contactPerson: 'Dr. Ana Reyes',
             contactNumber: '0954-468-1630',
             email: 'alabang@myhubcares.com'
         }
@@ -626,6 +626,249 @@ const MockData = {
             followUpDate: '2025-11-01',
             createdAt: '2025-10-18T14:00:00Z'
         }
+    ],
+
+    // Vaccinations
+    vaccinations: [
+        {
+            id: 1,
+            patientId: 1,
+            vaccineName: 'Hepatitis B',
+            manufacturer: 'GlaxoSmithKline',
+            doseNumber: 3,
+            totalDoses: 3,
+            dateGiven: '2024-10-15',
+            nextDoseDate: null,
+            lotNumber: 'HB2024-12345',
+            administrationSite: 'Left arm',
+            notes: 'Final dose completed. No adverse reactions.',
+            providerId: 3,
+            recordedDate: '2024-10-15T10:30:00Z'
+        },
+        {
+            id: 2,
+            patientId: 1,
+            vaccineName: 'Influenza',
+            manufacturer: 'Sanofi',
+            doseNumber: 1,
+            totalDoses: 1,
+            dateGiven: '2024-11-01',
+            nextDoseDate: null,
+            lotNumber: 'FLU2024-67890',
+            administrationSite: 'Right arm',
+            notes: 'Annual flu shot. Patient tolerated well.',
+            providerId: 5,
+            recordedDate: '2024-11-01T14:00:00Z'
+        },
+        {
+            id: 3,
+            patientId: 2,
+            vaccineName: 'HPV (Human Papillomavirus)',
+            manufacturer: 'Merck',
+            doseNumber: 2,
+            totalDoses: 3,
+            dateGiven: '2024-09-10',
+            nextDoseDate: '2025-03-10',
+            lotNumber: 'HPV2024-ABC123',
+            administrationSite: 'Left arm',
+            notes: 'Second dose administered. Next dose due in 6 months.',
+            providerId: 5,
+            recordedDate: '2024-09-10T11:00:00Z'
+        },
+        {
+            id: 4,
+            patientId: 3,
+            vaccineName: 'Hepatitis A',
+            manufacturer: 'GSK',
+            doseNumber: 1,
+            totalDoses: 2,
+            dateGiven: '2024-10-20',
+            nextDoseDate: '2025-04-20',
+            lotNumber: 'HA2024-XYZ789',
+            administrationSite: 'Right arm',
+            notes: 'First dose. Patient advised to return in 6 months.',
+            providerId: 3,
+            recordedDate: '2024-10-20T15:30:00Z'
+        },
+        {
+            id: 5,
+            patientId: 4,
+            vaccineName: 'Pneumococcal',
+            manufacturer: 'Pfizer',
+            doseNumber: 1,
+            totalDoses: 1,
+            dateGiven: '2024-08-05',
+            nextDoseDate: null,
+            lotNumber: 'PNEU2024-456',
+            administrationSite: 'Left arm',
+            notes: 'Single dose vaccine for high-risk patient.',
+            providerId: 5,
+            recordedDate: '2024-08-05T09:15:00Z'
+        }
+    ],
+
+    // Audit Logs
+    auditLogs: [
+        {
+            id: 1699876543210,
+            userId: 1,
+            action: 'login',
+            module: 'system',
+            details: 'User logged in successfully',
+            recordId: null,
+            oldValue: null,
+            newValue: null,
+            timestamp: '2025-11-05T08:00:00Z',
+            ipAddress: '192.168.1.100',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'First login of the day',
+            status: 'success'
+        },
+        {
+            id: 1699876543211,
+            userId: 2,
+            action: 'create',
+            module: 'patients',
+            details: 'New patient registered',
+            recordId: 5,
+            oldValue: null,
+            newValue: null,
+            timestamp: '2025-11-05T09:15:00Z',
+            ipAddress: '192.168.1.101',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Walk-in registration',
+            status: 'success'
+        },
+        {
+            id: 1699876543212,
+            userId: 2,
+            action: 'update',
+            module: 'appointments',
+            details: 'Appointment status changed',
+            recordId: 3,
+            oldValue: 'scheduled',
+            newValue: 'completed',
+            timestamp: '2025-11-05T10:30:00Z',
+            ipAddress: '192.168.1.101',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Patient attended appointment',
+            status: 'success'
+        },
+        {
+            id: 1699876543213,
+            userId: 3,
+            action: 'create',
+            module: 'prescriptions',
+            details: 'Digital prescription issued',
+            recordId: 4,
+            oldValue: null,
+            newValue: null,
+            timestamp: '2025-11-05T11:00:00Z',
+            ipAddress: '192.168.1.102',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'ART medication prescribed',
+            status: 'success'
+        },
+        {
+            id: 1699876543214,
+            userId: 5,
+            action: 'update',
+            module: 'inventory',
+            details: 'Stock level updated',
+            recordId: 2,
+            oldValue: '50 units',
+            newValue: '100 units',
+            timestamp: '2025-11-05T13:45:00Z',
+            ipAddress: '192.168.1.103',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Restock completed',
+            status: 'success'
+        },
+        {
+            id: 1699876543215,
+            userId: 1,
+            action: 'delete',
+            module: 'users',
+            details: 'User account deleted',
+            recordId: 99,
+            oldValue: null,
+            newValue: null,
+            timestamp: '2025-11-05T14:20:00Z',
+            ipAddress: '192.168.1.100',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Inactive account removed',
+            status: 'success'
+        },
+        {
+            id: 1699876543216,
+            userId: 2,
+            action: 'create',
+            module: 'vaccinations',
+            details: 'Vaccination record added',
+            recordId: 6,
+            oldValue: null,
+            newValue: null,
+            timestamp: '2025-11-05T15:10:00Z',
+            ipAddress: '192.168.1.101',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'HPV vaccine dose 1 administered',
+            status: 'success'
+        },
+        {
+            id: 1699876543217,
+            userId: 6,
+            action: 'login',
+            module: 'system',
+            details: 'Patient logged in from mobile',
+            recordId: null,
+            oldValue: null,
+            newValue: null,
+            timestamp: '2025-11-05T16:00:00Z',
+            ipAddress: '192.168.1.150',
+            device: 'Mobile',
+            userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)',
+            remarks: 'Accessed via mobile app',
+            status: 'success'
+        },
+        {
+            id: 1699876543218,
+            userId: 1,
+            action: 'export',
+            module: 'reports',
+            details: 'Patient statistics report exported',
+            recordId: null,
+            oldValue: null,
+            newValue: null,
+            timestamp: '2025-11-05T17:00:00Z',
+            ipAddress: '192.168.1.100',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Monthly report generation',
+            status: 'success'
+        },
+        {
+            id: 1699876543219,
+            userId: 3,
+            action: 'update',
+            module: 'patients',
+            details: 'Patient contact information updated',
+            recordId: 2,
+            oldValue: '0917-111-2222',
+            newValue: '0917-123-4567',
+            timestamp: '2025-11-04T10:30:00Z',
+            ipAddress: '192.168.1.102',
+            device: 'Desktop',
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Patient requested phone number change',
+            status: 'success'
+        }
     ]
 };
 
@@ -650,6 +893,8 @@ function initializeMockData() {
         localStorage.setItem('satisfactionSurveys', JSON.stringify(MockData.satisfactionSurveys));
         localStorage.setItem('htsSessions', JSON.stringify(MockData.htsSessions));
         localStorage.setItem('counselingSessions', JSON.stringify(MockData.counselingSessions));
+        localStorage.setItem('vaccinations', JSON.stringify(MockData.vaccinations));
+        localStorage.setItem('auditLogs', JSON.stringify(MockData.auditLogs));
         localStorage.setItem('hiv_platform_initialized', 'true');
     }
 }

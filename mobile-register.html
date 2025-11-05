@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2563eb">
+    <title>MyHubCares - Register</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --bg: #f5f7fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-btn {
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .header-placeholder {
+            width: 40px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            background: white;
+            padding: 16px 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 6px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-number {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 60%;
+            width: 80%;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step.completed::after {
+            background: var(--success);
+        }
+
+        /* Form Container */
+        .form-container {
+            padding: 20px;
+        }
+
+        .registration-step {
+            display: none;
+        }
+
+        .registration-step.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #f9fafb;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            flex: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-label {
+            display: block;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .radio-option input:checked + .radio-label {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Branch Selection */
+        .branch-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .branch-card {
+            display: block;
+            cursor: pointer;
+        }
+
+        .branch-card input[type="radio"] {
+            display: none;
+        }
+
+        .branch-label {
+            display: block;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .branch-card input:checked + .branch-label {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .branch-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .branch-address {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .branch-contact {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .button-group {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 16px 20px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .success-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .uic-display {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .uic-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .uic-code {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="header-title">🏠 My Hub Cares</div>
+            <div class="header-placeholder"></div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-steps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Personal</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Contact</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Account</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <form id="registrationForm">
+            <!-- Step 1: Personal Information -->
+            <div class="registration-step active" data-step="1">
+                <div class="card">
+                    <h2 class="card-title">Personal Information</h2>
+                    <p class="card-description">Tell us about yourself</p>
+
+                    <div class="form-group">
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" required placeholder="Juan">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName" placeholder="Optional">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" required placeholder="Dela Cruz">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="suffix">Suffix</label>
+                        <select id="suffix" name="suffix">
+                            <option value="">None</option>
+                            <option value="Jr.">Jr.</option>
+                            <option value="Sr.">Sr.</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthDate">Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="birthDate" name="birthDate" required max="2010-12-31">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sex <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="sexMale" name="sex" value="M" required checked>
+                                <label for="sexMale" class="radio-label">👨 Male</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="sexFemale" name="sex" value="F">
+                                <label for="sexFemale" class="radio-label">👩 Female</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="civilStatus">Civil Status <span class="required">*</span></label>
+                        <select id="civilStatus" name="civilStatus" required>
+                            <option value="">Select status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Separated">Separated</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <input type="text" id="nationality" name="nationality" value="Filipino">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">Parent Information (for UIC)</h2>
+                    <p class="card-description">Required for generating your Unique Identifier Code</p>
+
+                    <div class="form-group">
+                        <label for="motherName">Mother's Name <span class="required">*</span></label>
+                        <input type="text" id="motherName" name="motherName" required placeholder="Maria Reyes">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fatherName">Father's Name <span class="required">*</span></label>
+                        <input type="text" id="fatherName" name="fatherName" required placeholder="Jose Dela Cruz">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthOrder">Birth Order <span class="required">*</span></label>
+                        <input type="number" id="birthOrder" name="birthOrder" required min="1" max="99" placeholder="1" value="1">
+                        <small style="font-size: 12px; color: var(--text-secondary); display: block; margin-top: 4px;">
+                            Your position in birth order (1 = first child, 2 = second child, etc.)
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Contact & Branch -->
+            <div class="registration-step" data-step="2">
+                <div class="card">
+                    <h2 class="card-title">Contact Information</h2>
+                    <p class="card-description">How can we reach you?</p>
+
+                    <div class="form-group">
+                        <label for="contactPhone">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="contactPhone" name="contactPhone" required placeholder="09171234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="juan@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Street Address <span class="required">*</span></label>
+                        <input type="text" id="address" name="address" required placeholder="Street, Barangay">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currentCity">City <span class="required">*</span></label>
+                        <input type="text" id="currentCity" name="currentCity" required placeholder="Enter city">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currentProvince">Province <span class="required">*</span></label>
+                        <input type="text" id="currentProvince" name="currentProvince" required placeholder="Enter province">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="philhealthNo">PhilHealth Number</label>
+                        <input type="text" id="philhealthNo" name="philhealthNo" placeholder="XX-XXXXXXXXX-X (optional)">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">Choose Your Branch</h2>
+                    <p class="card-description">Select your preferred My Hub Cares location</p>
+
+                    <div class="branch-grid">
+                        <label class="branch-card">
+                            <input type="radio" name="facilityId" value="1" required checked>
+                            <div class="branch-label">
+                                <div class="branch-name">🏥 MHC Ortigas Main</div>
+                                <div class="branch-address">Pearl Drive, Pasig City</div>
+                                <div class="branch-contact">📞 0917-187-CARE (2273)</div>
+                            </div>
+                        </label>
+
+                        <label class="branch-card">
+                            <input type="radio" name="facilityId" value="2">
+                            <div class="branch-label">
+                                <div class="branch-name">🏥 MHC Pasay</div>
+                                <div class="branch-address">EDSA, Pasay City</div>
+                                <div class="branch-contact">📞 0898-700-1267</div>
+                            </div>
+                        </label>
+
+                        <label class="branch-card">
+                            <input type="radio" name="facilityId" value="3">
+                            <div class="branch-label">
+                                <div class="branch-name">🏥 MHC Alabang</div>
+                                <div class="branch-address">Muntinlupa City</div>
+                                <div class="branch-contact">📞 0954-468-1630</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Account Setup -->
+            <div class="registration-step" data-step="3">
+                <div class="card">
+                    <h2 class="card-title">Create Your Account</h2>
+                    <p class="card-description">Choose your login credentials</p>
+
+                    <div class="form-group">
+                        <label for="username">Username <span class="required">*</span></label>
+                        <input type="text" id="username" name="username" required placeholder="juandelacruz" autocomplete="off">
+                        <small style="font-size: 12px; color: var(--text-secondary); display: block; margin-top: 4px;">
+                            Use only letters, numbers, and underscores
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password <span class="required">*</span></label>
+                        <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters" autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" placeholder="Re-enter password" autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label style="display: flex; align-items: start; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="termsConsent" name="termsConsent" required style="width: auto; margin-top: 4px;">
+                            <span style="font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                                I agree to the Terms and Conditions and Privacy Policy
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: start; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="dataConsent" name="dataConsent" required style="width: auto; margin-top: 4px;">
+                            <span style="font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                                I consent to the collection and processing of my health information in accordance with the Data Privacy Act of 2012
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: start; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="smsConsent" name="smsConsent" style="width: auto; margin-top: 4px;">
+                            <span style="font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                                I agree to receive appointment reminders and health updates via SMS and email
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Screen -->
+            <div class="registration-step" data-step="4">
+                <div class="success-screen">
+                    <div class="success-icon">🎉</div>
+                    <h2 class="success-title">Registration Successful!</h2>
+                    <p class="success-message">
+                        Welcome to My Hub Cares! Your account has been created successfully.<br>
+                        <strong style="color: var(--primary);">"It's my hub, and it's yours" - Welcome Home! 🏠</strong>
+                    </p>
+
+                    <div class="uic-display">
+                        <div class="uic-label">Your Unique Identifier Code (UIC)</div>
+                        <div class="uic-code" id="generatedUIC">-</div>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin-top: 10px;">
+                            Format: Mother's initials + Father's initials + Birth order + DOB
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 16px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="margin-bottom: 12px; color: var(--text-primary);">Your Account Details</h4>
+                        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.8;">
+                            <strong>Username:</strong> <span id="displayUsername">-</span><br>
+                            <strong>Preferred Branch:</strong> <span id="displayBranch">-</span>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                        Please save your UIC for future reference. You can now login to access your health dashboard.
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Button Group -->
+    <div class="button-group">
+        <button type="button" class="btn btn-secondary" id="prevBtn" onclick="previousStep()" style="display: none;">
+            ← Back
+        </button>
+        <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+            Next →
+        </button>
+        <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitRegistration()" style="display: none;">
+            🚀 Create Account
+        </button>
+        <button type="button" class="btn btn-primary" id="loginBtn" onclick="goToLogin()" style="display: none;">
+            🔑 Login Now
+        </button>
+    </div>
+
+    <script src="js/mockData.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/audit.js"></script>
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+        let generatedUIC = '';
+
+        // Initialize mock data
+        if (typeof initializeMockData === 'function') {
+            initializeMockData();
+        }
+
+        function updateStepDisplay() {
+            // Update step indicators
+            document.querySelectorAll('.step').forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+
+            // Update form steps
+            document.querySelectorAll('.registration-step').forEach(step => {
+                step.classList.remove('active');
+                if (parseInt(step.dataset.step) === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const loginBtn = document.getElementById('loginBtn');
+
+            prevBtn.style.display = currentStep > 1 && currentStep <= totalSteps ? 'block' : 'none';
+            nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
+            submitBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
+            loginBtn.style.display = currentStep === 4 ? 'block' : 'none';
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function validateStep(step) {
+            const currentStepElement = document.querySelector(`.registration-step[data-step="${step}"]`);
+            const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
+            
+            for (let input of inputs) {
+                if (!input.checkValidity()) {
+                    input.reportValidity();
+                    return false;
+                }
+            }
+            
+            // Additional validation for step 3
+            if (step === 3) {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const consent = document.getElementById('consent').checked;
+                
+                if (password !== confirmPassword) {
+                    alert('❌ Passwords do not match!');
+                    return false;
+                }
+                
+                if (!consent) {
+                    alert('❌ Please accept the consent to continue.');
+                    return false;
+                }
+                
+                // Check if username is unique
+                const username = document.getElementById('username').value;
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+                    alert('❌ Username already exists. Please choose another.');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepDisplay();
+                }
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        }
+
+        function generateUIC(motherName, fatherName, birthOrder, birthDate) {
+            const date = new Date(birthDate);
+            const motherLetters = (motherName.substring(0, 2) || 'XX').toUpperCase();
+            const fatherLetters = (fatherName.substring(0, 2) || 'XX').toUpperCase();
+            const birthOrderNum = String(birthOrder).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = date.getFullYear();
+            
+            return `${motherLetters}${fatherLetters}${birthOrderNum}${month}-${day}-${year}`;
+        }
+
+        function submitRegistration() {
+            if (!validateStep(3)) {
+                return;
+            }
+
+            const form = document.getElementById('registrationForm');
+            const formData = new FormData(form);
+
+            // Get form values
+            const firstName = formData.get('firstName');
+            const middleName = formData.get('middleName');
+            const lastName = formData.get('lastName');
+            const suffix = formData.get('suffix');
+            const birthDate = formData.get('birthDate');
+            const motherName = formData.get('motherName');
+            const fatherName = formData.get('fatherName');
+            const birthOrder = formData.get('birthOrder');
+
+            // Generate UIC with proper format
+            generatedUIC = generateUIC(motherName, fatherName, birthOrder, birthDate);
+
+            // Get all patients and users
+            const patients = JSON.parse(localStorage.getItem('patients')) || [];
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Create new patient ID
+            const newPatientId = patients.length > 0 ? Math.max(...patients.map(p => p.id)) + 1 : 100;
+            const newUserId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 100;
+
+            // Create patient object
+            const newPatient = {
+                id: newPatientId,
+                uic: generatedUIC,
+                philhealthNo: formData.get('philhealthNo'),
+                firstName: firstName,
+                middleName: middleName,
+                lastName: lastName,
+                suffix: suffix,
+                birthDate: birthDate,
+                sex: formData.get('sex'),
+                civilStatus: formData.get('civilStatus'),
+                nationality: formData.get('nationality'),
+                motherName: motherName,
+                fatherName: fatherName,
+                birthOrder: parseInt(birthOrder),
+                currentCity: formData.get('currentCity'),
+                currentProvince: formData.get('currentProvince'),
+                contactPhone: formData.get('contactPhone'),
+                email: formData.get('email') || '',
+                address: formData.get('address'),
+                facilityId: parseInt(formData.get('facilityId')),
+                enrollmentDate: new Date().toISOString(),
+                status: 'active'
+            };
+
+            // Create user object
+            const newUser = {
+                id: newUserId,
+                username: formData.get('username'),
+                password: formData.get('password'), // In production, hash this!
+                role: 'patient',
+                fullName: `${firstName} ${lastName}`,
+                email: formData.get('email') || `${formData.get('username')}@patient.local`,
+                facilityId: parseInt(formData.get('facilityId')),
+                patientId: newPatientId
+            };
+
+            // Save to localStorage
+            patients.push(newPatient);
+            users.push(newUser);
+            localStorage.setItem('patients', JSON.stringify(patients));
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Log patient registration
+            if (typeof logAudit === 'function') {
+                // Temporarily set current user for logging
+                const tempUser = { id: 0, fullName: 'System', role: 'system' };
+                localStorage.setItem('currentUser', JSON.stringify(tempUser));
+                
+                logAudit('create', 'patients', 'New patient self-registered via mobile', newPatientId, 'success', null, null, `UIC: ${generatedUIC}, Registered from mobile app`);
+                
+                // Clear temp user
+                localStorage.removeItem('currentUser');
+            }
+
+            // Show success screen
+            currentStep = 4;
+            document.getElementById('generatedUIC').textContent = generatedUIC;
+            document.getElementById('displayUsername').textContent = formData.get('username');
+            
+            const facilities = JSON.parse(localStorage.getItem('facilities')) || [];
+            const selectedFacility = facilities.find(f => f.id === parseInt(formData.get('facilityId')));
+            document.getElementById('displayBranch').textContent = selectedFacility ? selectedFacility.name : 'My Hub Cares';
+            
+            updateStepDisplay();
+        }
+
+        function goToLogin() {
+            window.location.href = 'mobile-login.html';
+        }
+
+        function goBack() {
+            if (currentStep > 1 && currentStep <= totalSteps) {
+                previousStep();
+            } else {
+                if (confirm('Are you sure you want to cancel registration?')) {
+                    window.location.href = 'mobile-login.html';
+                }
+            }
+        }
+
+        // Initialize
+        updateStepDisplay();
+    </script>
+</body>
+</html>
+
