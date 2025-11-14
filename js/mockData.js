@@ -2652,6 +2652,809 @@ const MockData = {
             cached_at: '2024-11-05T08:00:00Z',
             expires_at: '2024-11-05T20:00:00Z'
         }
+    ],
+
+    // Clinical Visits (Module 3)
+    clinical_visits: [
+        {
+            visit_id: 'visit_001',
+            patient_id: 1,
+            provider_id: 2,
+            facility_id: 1,
+            visit_date: '2025-10-15',
+            visit_type: 'follow_up',
+            who_stage: 'Stage 1',
+            chief_complaint: 'Routine follow-up for ART',
+            clinical_notes: 'Patient doing well on current regimen. No complaints. Adherence good.',
+            assessment: 'Stable on current ART regimen',
+            plan: 'Continue current medications, follow-up in 3 months',
+            follow_up_date: '2026-01-15',
+            follow_up_reason: 'Routine ART monitoring',
+            created_at: '2025-10-15T09:00:00Z',
+            updated_at: '2025-10-15T09:30:00Z'
+        },
+        {
+            visit_id: 'visit_002',
+            patient_id: 2,
+            provider_id: 2,
+            facility_id: 1,
+            visit_date: '2025-10-10',
+            visit_type: 'follow_up',
+            who_stage: 'Stage 1',
+            chief_complaint: 'Adherence check',
+            clinical_notes: 'Discussed importance of adherence. Patient reports occasional missed doses.',
+            assessment: 'Sub-optimal adherence, patient education provided',
+            plan: 'Adherence counseling, set medication reminders',
+            follow_up_date: '2025-11-10',
+            follow_up_reason: 'Adherence monitoring',
+            created_at: '2025-10-10T10:00:00Z',
+            updated_at: '2025-10-10T10:30:00Z'
+        },
+        {
+            visit_id: 'visit_003',
+            patient_id: 1,
+            provider_id: 3,
+            facility_id: 1,
+            visit_date: '2025-09-01',
+            visit_type: 'initial',
+            who_stage: 'Stage 2',
+            chief_complaint: 'New HIV diagnosis',
+            clinical_notes: 'Patient recently diagnosed. Baseline CD4 and viral load ordered.',
+            assessment: 'Newly diagnosed HIV, WHO Stage 2',
+            plan: 'Start ART, baseline labs, pre-ART counseling',
+            follow_up_date: '2025-09-15',
+            follow_up_reason: 'Review lab results and start ART',
+            created_at: '2025-09-01T14:00:00Z',
+            updated_at: '2025-09-01T14:45:00Z'
+        }
+    ],
+
+    // Vital Signs (Module 3)
+    vital_signs: [
+        {
+            vital_id: 'vital_001',
+            visit_id: 'visit_001',
+            height_cm: 170,
+            weight_kg: 68,
+            bmi: 23.53,
+            systolic_bp: 120,
+            diastolic_bp: 80,
+            pulse_rate: 72,
+            temperature_c: 36.8,
+            respiratory_rate: 16,
+            oxygen_saturation: 98,
+            recorded_at: '2025-10-15T09:05:00Z',
+            recorded_by: 3
+        },
+        {
+            vital_id: 'vital_002',
+            visit_id: 'visit_002',
+            height_cm: 165,
+            weight_kg: 60,
+            bmi: 22.04,
+            systolic_bp: 118,
+            diastolic_bp: 78,
+            pulse_rate: 75,
+            temperature_c: 37.0,
+            respiratory_rate: 18,
+            oxygen_saturation: 97,
+            recorded_at: '2025-10-10T10:05:00Z',
+            recorded_by: 3
+        },
+        {
+            vital_id: 'vital_003',
+            visit_id: 'visit_003',
+            height_cm: 170,
+            weight_kg: 65,
+            bmi: 22.49,
+            systolic_bp: 115,
+            diastolic_bp: 75,
+            pulse_rate: 78,
+            temperature_c: 36.9,
+            respiratory_rate: 17,
+            oxygen_saturation: 98,
+            recorded_at: '2025-09-01T14:05:00Z',
+            recorded_by: 3
+        }
+    ],
+
+    // Prescription Items (Module 4)
+    prescription_items: [
+        {
+            prescription_item_id: 'rx_item_001',
+            prescription_id: 1,
+            medication_id: 'med_001',
+            dosage: '1 tablet',
+            frequency: 'Once daily',
+            quantity: 90,
+            instructions: 'Take with food in the evening',
+            duration_days: 90
+        },
+        {
+            prescription_item_id: 'rx_item_002',
+            prescription_id: 1,
+            medication_id: 'med_008',
+            dosage: '1 tablet',
+            frequency: 'Once daily',
+            quantity: 90,
+            instructions: 'Take in the morning',
+            duration_days: 90
+        },
+        {
+            prescription_item_id: 'rx_item_003',
+            prescription_id: 2,
+            medication_id: 'med_001',
+            dosage: '1 tablet',
+            frequency: 'Once daily',
+            quantity: 30,
+            instructions: 'Take with food in the evening',
+            duration_days: 30
+        }
+    ],
+
+    // Medication Inventory (Module 4)
+    medication_inventory: [
+        {
+            inventory_id: 'inv_001',
+            medication_id: 'med_001',
+            facility_id: 1,
+            batch_number: 'TLD2024-001',
+            quantity_on_hand: 5000,
+            unit: 'tablets',
+            expiry_date: '2025-12-31',
+            reorder_level: 1000,
+            last_restocked: '2024-10-01',
+            supplier: 'National Drug Procurement Center',
+            cost_per_unit: 2.50,
+            created_at: '2024-10-01T08:00:00Z'
+        },
+        {
+            inventory_id: 'inv_002',
+            medication_id: 'med_002',
+            facility_id: 1,
+            batch_number: 'EFV2024-001',
+            quantity_on_hand: 850,
+            unit: 'tablets',
+            expiry_date: '2025-06-30',
+            reorder_level: 500,
+            last_restocked: '2024-09-15',
+            supplier: 'PhilHealth Medical Supplies',
+            cost_per_unit: 1.75,
+            created_at: '2024-09-15T08:00:00Z'
+        },
+        {
+            inventory_id: 'inv_003',
+            medication_id: 'med_008',
+            facility_id: 1,
+            batch_number: 'CTX2024-002',
+            quantity_on_hand: 3200,
+            unit: 'tablets',
+            expiry_date: '2026-03-31',
+            reorder_level: 800,
+            last_restocked: '2024-11-01',
+            supplier: 'National Drug Procurement Center',
+            cost_per_unit: 0.50,
+            created_at: '2024-11-01T08:00:00Z'
+        },
+        {
+            inventory_id: 'inv_004',
+            medication_id: 'med_005',
+            facility_id: 1,
+            batch_number: 'DTG2024-001',
+            quantity_on_hand: 450,
+            unit: 'tablets',
+            expiry_date: '2025-08-31',
+            reorder_level: 500,
+            last_restocked: '2024-08-20',
+            supplier: 'PhilHealth Medical Supplies',
+            cost_per_unit: 3.20,
+            created_at: '2024-08-20T08:00:00Z'
+        }
+    ],
+
+    // Medication Reminders (Module 13)
+    medication_reminders: [
+        {
+            reminder_id: 'rem_001',
+            prescription_id: 1,
+            patient_id: 1,
+            medication_name: 'Tenofovir/Lamivudine/Dolutegravir (TLD)',
+            dosage: '1 tablet',
+            frequency: 'Once daily',
+            reminder_time: '20:00:00',
+            sound_preference: 'default',
+            browser_notifications: true,
+            special_instructions: 'Take with food',
+            active: true,
+            missed_doses: 2,
+            created_at: '2025-10-01T08:00:00Z',
+            updated_at: '2025-11-01T10:00:00Z'
+        },
+        {
+            reminder_id: 'rem_002',
+            prescription_id: 1,
+            patient_id: 1,
+            medication_name: 'Cotrimoxazole 960mg',
+            dosage: '1 tablet',
+            frequency: 'Once daily',
+            reminder_time: '08:00:00',
+            sound_preference: 'gentle',
+            browser_notifications: true,
+            special_instructions: 'Take in the morning',
+            active: true,
+            missed_doses: 1,
+            created_at: '2025-10-01T08:00:00Z',
+            updated_at: '2025-11-01T10:00:00Z'
+        },
+        {
+            reminder_id: 'rem_003',
+            prescription_id: 2,
+            patient_id: 2,
+            medication_name: 'Tenofovir/Lamivudine/Dolutegravir (TLD)',
+            dosage: '1 tablet',
+            frequency: 'Once daily',
+            reminder_time: '19:00:00',
+            sound_preference: 'urgent',
+            browser_notifications: true,
+            special_instructions: 'Take with dinner',
+            active: true,
+            missed_doses: 5,
+            created_at: '2025-09-15T08:00:00Z',
+            updated_at: '2025-11-01T10:00:00Z'
+        }
+    ],
+
+    // Counseling Sessions (Module 7)
+    counseling_sessions: [
+        {
+            session_id: 'counsel_001',
+            patient_id: 1,
+            counselor_id: 4,
+            facility_id: 1,
+            session_date: '2025-10-01',
+            session_type: 'adherence',
+            session_notes: 'Discussed medication adherence strategies. Patient committed to setting daily reminders.',
+            follow_up_required: true,
+            follow_up_date: '2025-11-01',
+            follow_up_reason: 'Review adherence improvement',
+            created_at: '2025-10-01T11:00:00Z'
+        },
+        {
+            session_id: 'counsel_002',
+            patient_id: 2,
+            counselor_id: 4,
+            facility_id: 1,
+            session_date: '2025-10-10',
+            session_type: 'adherence',
+            session_notes: 'Patient struggling with adherence due to work schedule. Explored flexible timing options.',
+            follow_up_required: true,
+            follow_up_date: '2025-10-24',
+            follow_up_reason: 'Check on new medication schedule',
+            created_at: '2025-10-10T14:00:00Z'
+        },
+        {
+            session_id: 'counsel_003',
+            patient_id: 1,
+            counselor_id: 4,
+            facility_id: 1,
+            session_date: '2025-08-30',
+            session_type: 'pre_test',
+            session_notes: 'Pre-test counseling completed. Discussed HIV testing process and implications.',
+            follow_up_required: true,
+            follow_up_date: '2025-09-01',
+            follow_up_reason: 'Post-test counseling',
+            created_at: '2025-08-30T09:00:00Z'
+        },
+        {
+            session_id: 'counsel_004',
+            patient_id: 1,
+            counselor_id: 4,
+            facility_id: 1,
+            session_date: '2025-09-01',
+            session_type: 'post_test',
+            session_notes: 'Post-test counseling. Patient positive. Provided emotional support and linked to care.',
+            follow_up_required: true,
+            follow_up_date: '2025-09-15',
+            follow_up_reason: 'Initial ART counseling',
+            created_at: '2025-09-01T15:00:00Z'
+        }
+    ],
+
+    // HTS Sessions (Module 7)
+    hts_sessions: [
+        {
+            hts_id: 'hts_001',
+            patient_id: 1,
+            tester_id: 3,
+            facility_id: 1,
+            test_date: '2025-09-01',
+            test_result: 'positive',
+            test_type: 'Rapid HIV Test',
+            pre_test_counseling: true,
+            post_test_counseling: true,
+            linked_to_care: true,
+            care_link_date: '2025-09-01',
+            notes: 'Confirmatory test also positive. Patient linked to care same day.',
+            created_at: '2025-09-01T13:00:00Z'
+        },
+        {
+            hts_id: 'hts_002',
+            patient_id: 2,
+            tester_id: 3,
+            facility_id: 1,
+            test_date: '2025-08-15',
+            test_result: 'positive',
+            test_type: 'Rapid HIV Test',
+            pre_test_counseling: true,
+            post_test_counseling: true,
+            linked_to_care: true,
+            care_link_date: '2025-08-16',
+            notes: 'Patient referred to ART clinic. Started treatment within 2 days.',
+            created_at: '2025-08-15T10:00:00Z'
+        },
+        {
+            hts_id: 'hts_003',
+            patient_id: 3,
+            tester_id: 3,
+            facility_id: 2,
+            test_date: '2025-07-20',
+            test_result: 'negative',
+            test_type: 'Rapid HIV Test',
+            pre_test_counseling: true,
+            post_test_counseling: true,
+            linked_to_care: false,
+            care_link_date: null,
+            notes: 'Negative result. Prevention counseling provided.',
+            created_at: '2025-07-20T11:00:00Z'
+        }
+    ],
+
+    // Audit Log (Module 8)
+    audit_log: [
+        {
+            audit_id: 'audit_001',
+            user_id: 2,
+            user_name: 'Dr. Maria Santos',
+            user_role: 'physician',
+            action: 'CREATE',
+            module: 'PRESCRIPTIONS',
+            entity_type: 'prescription',
+            entity_id: 1,
+            record_id: 'RX-2025-001',
+            old_value: null,
+            new_value: JSON.stringify({ patient_id: 1, medications: ['TLD', 'Cotrimoxazole'] }),
+            change_summary: 'Created new prescription for Patient UIC: MAFI0111-15-1990',
+            ip_address: '192.168.1.100',
+            device_type: 'Desktop',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Initial ART prescription',
+            status: 'success',
+            error_message: null,
+            created_at: '2025-10-01T08:30:00Z'
+        },
+        {
+            audit_id: 'audit_002',
+            user_id: 3,
+            user_name: 'Nurse John Cruz',
+            user_role: 'nurse',
+            action: 'UPDATE',
+            module: 'INVENTORY',
+            entity_type: 'medication_inventory',
+            entity_id: 'inv_001',
+            record_id: 'TLD2024-001',
+            old_value: JSON.stringify({ quantity_on_hand: 5100 }),
+            new_value: JSON.stringify({ quantity_on_hand: 5000 }),
+            change_summary: 'Dispensed 100 tablets of TLD',
+            ip_address: '192.168.1.105',
+            device_type: 'Desktop',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Medication dispensing',
+            status: 'success',
+            error_message: null,
+            created_at: '2025-10-01T09:00:00Z'
+        },
+        {
+            audit_id: 'audit_003',
+            user_id: 1,
+            user_name: 'Admin User',
+            user_role: 'admin',
+            action: 'LOGIN',
+            module: 'AUTH',
+            entity_type: 'session',
+            entity_id: 'session_001',
+            record_id: 'admin',
+            old_value: null,
+            new_value: null,
+            change_summary: 'User logged in',
+            ip_address: '192.168.1.50',
+            device_type: 'Desktop',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Successful login',
+            status: 'success',
+            error_message: null,
+            created_at: '2025-11-05T08:00:00Z'
+        },
+        {
+            audit_id: 'audit_004',
+            user_id: 4,
+            user_name: 'CM Jane Reyes',
+            user_role: 'case_manager',
+            action: 'CREATE',
+            module: 'COUNSELING',
+            entity_type: 'counseling_session',
+            entity_id: 'counsel_001',
+            record_id: 'CS-2025-001',
+            old_value: null,
+            new_value: JSON.stringify({ patient_id: 1, session_type: 'adherence' }),
+            change_summary: 'Recorded adherence counseling session',
+            ip_address: '192.168.1.110',
+            device_type: 'Desktop',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            remarks: 'Adherence counseling completed',
+            status: 'success',
+            error_message: null,
+            created_at: '2025-10-01T11:30:00Z'
+        }
+    ],
+
+    // Vaccination Records (Module 10)
+    vaccination_records: [
+        {
+            vaccination_id: 'vacc_001',
+            patient_id: 1,
+            vaccine_id: 'vac_001',
+            provider_id: 3,
+            facility_id: 1,
+            dose_number: 1,
+            total_doses: 3,
+            date_given: '2025-09-01',
+            next_dose_due: '2025-10-01',
+            lot_number: 'HEPB2024-001',
+            administration_site: 'left_arm',
+            notes: 'No adverse reactions reported',
+            status: 'in_progress',
+            created_at: '2025-09-01T14:00:00Z'
+        },
+        {
+            vaccination_id: 'vacc_002',
+            patient_id: 1,
+            vaccine_id: 'vac_001',
+            provider_id: 3,
+            facility_id: 1,
+            dose_number: 2,
+            total_doses: 3,
+            date_given: '2025-10-01',
+            next_dose_due: '2026-03-01',
+            lot_number: 'HEPB2024-001',
+            administration_site: 'right_arm',
+            notes: 'Mild soreness at injection site',
+            status: 'in_progress',
+            created_at: '2025-10-01T15:00:00Z'
+        },
+        {
+            vaccination_id: 'vacc_003',
+            patient_id: 2,
+            vaccine_id: 'vac_001',
+            provider_id: 3,
+            facility_id: 1,
+            dose_number: 1,
+            total_doses: 3,
+            date_given: '2025-08-20',
+            next_dose_due: '2025-09-20',
+            lot_number: 'HEPB2024-001',
+            administration_site: 'left_arm',
+            notes: 'No adverse reactions',
+            status: 'in_progress',
+            created_at: '2025-08-20T10:00:00Z'
+        }
+    ],
+
+    // Survey Responses (Module 11)
+    survey_responses: [
+        {
+            survey_id: 'survey_001',
+            patient_id: 1,
+            facility_id: 1,
+            overall_satisfaction: 'happy',
+            staff_friendliness: 5,
+            wait_time: 4,
+            facility_cleanliness: 5,
+            would_recommend: 'yes',
+            comments: 'Excellent service. Staff was very helpful and caring.',
+            average_score: 4.67,
+            submitted_at: '2025-10-15T16:00:00Z'
+        },
+        {
+            survey_id: 'survey_002',
+            patient_id: 2,
+            facility_id: 1,
+            overall_satisfaction: 'neutral',
+            staff_friendliness: 4,
+            wait_time: 3,
+            facility_cleanliness: 4,
+            would_recommend: 'maybe',
+            comments: 'Wait time was a bit long, but staff was friendly.',
+            average_score: 3.67,
+            submitted_at: '2025-10-10T17:00:00Z'
+        },
+        {
+            survey_id: 'survey_003',
+            patient_id: 3,
+            facility_id: 2,
+            overall_satisfaction: 'very_happy',
+            staff_friendliness: 5,
+            wait_time: 5,
+            facility_cleanliness: 5,
+            would_recommend: 'yes',
+            comments: 'Best healthcare facility I have visited. Highly recommend!',
+            average_score: 5.0,
+            submitted_at: '2025-10-05T15:30:00Z'
+        },
+        {
+            survey_id: 'survey_004',
+            patient_id: 1,
+            facility_id: 1,
+            overall_satisfaction: 'happy',
+            staff_friendliness: 5,
+            wait_time: 4,
+            facility_cleanliness: 4,
+            would_recommend: 'yes',
+            comments: 'Great experience overall.',
+            average_score: 4.33,
+            submitted_at: '2025-09-15T14:00:00Z'
+        }
+    ],
+
+    // Learning Modules (Module 12)
+    learning_modules: [
+        {
+            module_id: 'learn_001',
+            module_title: 'Understanding HIV and AIDS',
+            module_content: '<h2>What is HIV?</h2><p>HIV (Human Immunodeficiency Virus) is a virus that attacks the immune system...</p>',
+            module_type: 'article',
+            category: 'basics',
+            description: 'Learn the fundamentals about HIV, how it affects the body, and the difference between HIV and AIDS.',
+            read_time: '10 min',
+            tags: JSON.stringify(['hiv', 'basics', 'education']),
+            is_published: true,
+            view_count: 245,
+            created_at: '2025-01-15T08:00:00Z',
+            updated_at: '2025-09-20T10:00:00Z'
+        },
+        {
+            module_id: 'learn_002',
+            module_title: 'ART Medication Adherence',
+            module_content: '<h2>Why is Adherence Important?</h2><p>Taking your HIV medications exactly as prescribed is crucial...</p>',
+            module_type: 'article',
+            category: 'treatment',
+            description: 'Discover why medication adherence is critical for HIV treatment success and learn tips to stay on track.',
+            read_time: '8 min',
+            tags: JSON.stringify(['art', 'adherence', 'treatment']),
+            is_published: true,
+            view_count: 312,
+            created_at: '2025-02-10T08:00:00Z',
+            updated_at: '2025-10-01T10:00:00Z'
+        },
+        {
+            module_id: 'learn_003',
+            module_title: 'HIV Prevention Methods',
+            module_content: '<h2>How to Prevent HIV</h2><p>There are several effective ways to prevent HIV transmission...</p>',
+            module_type: 'article',
+            category: 'prevention',
+            description: 'Learn about PrEP, condoms, and other proven HIV prevention strategies.',
+            read_time: '12 min',
+            tags: JSON.stringify(['prevention', 'prep', 'safety']),
+            is_published: true,
+            view_count: 198,
+            created_at: '2025-03-05T08:00:00Z',
+            updated_at: '2025-10-15T10:00:00Z'
+        },
+        {
+            module_id: 'learn_004',
+            module_title: 'Living Well with HIV',
+            module_content: '<h2>Healthy Living Tips</h2><p>With proper treatment and lifestyle choices, people with HIV can live long, healthy lives...</p>',
+            module_type: 'article',
+            category: 'lifestyle',
+            description: 'Tips and strategies for maintaining a healthy lifestyle while living with HIV.',
+            read_time: '15 min',
+            tags: JSON.stringify(['lifestyle', 'wellness', 'nutrition']),
+            is_published: true,
+            view_count: 176,
+            created_at: '2025-04-12T08:00:00Z',
+            updated_at: '2025-10-20T10:00:00Z'
+        },
+        {
+            module_id: 'learn_005',
+            module_title: 'Understanding CD4 Count and Viral Load',
+            module_content: '<h2>Important Lab Tests</h2><p>CD4 count and viral load are key indicators of HIV treatment success...</p>',
+            module_type: 'article',
+            category: 'treatment',
+            description: 'Learn what CD4 count and viral load mean and why they matter for your health.',
+            read_time: '10 min',
+            tags: JSON.stringify(['labs', 'cd4', 'viral load', 'monitoring']),
+            is_published: true,
+            view_count: 289,
+            created_at: '2025-05-08T08:00:00Z',
+            updated_at: '2025-11-01T10:00:00Z'
+        }
+    ],
+
+    // ART Regimens (Module 15)
+    art_regimens: [
+        {
+            regimen_id: 'regimen_001',
+            patient_id: 1,
+            provider_id: 2,
+            facility_id: 1,
+            start_date: '2025-09-15',
+            stop_date: null,
+            status: 'active',
+            stop_reason: null,
+            change_reason: null,
+            notes: 'First-line ART regimen initiated',
+            created_at: '2025-09-15T10:00:00Z',
+            updated_at: '2025-09-15T10:00:00Z'
+        },
+        {
+            regimen_id: 'regimen_002',
+            patient_id: 2,
+            provider_id: 2,
+            facility_id: 1,
+            start_date: '2025-08-20',
+            stop_date: null,
+            status: 'active',
+            stop_reason: null,
+            change_reason: null,
+            notes: 'Standard first-line regimen',
+            created_at: '2025-08-20T09:00:00Z',
+            updated_at: '2025-08-20T09:00:00Z'
+        },
+        {
+            regimen_id: 'regimen_003',
+            patient_id: 3,
+            provider_id: 3,
+            facility_id: 2,
+            start_date: '2025-07-01',
+            stop_date: '2025-09-01',
+            status: 'stopped',
+            stop_reason: 'Patient transferred to another facility',
+            change_reason: null,
+            notes: 'Treatment transferred',
+            created_at: '2025-07-01T08:00:00Z',
+            updated_at: '2025-09-01T10:00:00Z'
+        }
+    ],
+
+    // ART Regimen Drugs (Module 15)
+    art_regimen_drugs: [
+        {
+            regimen_drug_id: 'reg_drug_001',
+            regimen_id: 'regimen_001',
+            medication_id: 'med_001',
+            drug_name: 'Tenofovir/Lamivudine/Dolutegravir (TLD)',
+            dosage: '1 tablet',
+            pills_per_day: 1,
+            pills_dispensed: 180,
+            pills_remaining: 60,
+            missed_doses: 2,
+            last_dispensed_date: '2025-10-01',
+            created_at: '2025-09-15T10:00:00Z'
+        },
+        {
+            regimen_drug_id: 'reg_drug_002',
+            regimen_id: 'regimen_002',
+            medication_id: 'med_001',
+            drug_name: 'Tenofovir/Lamivudine/Dolutegravir (TLD)',
+            dosage: '1 tablet',
+            pills_per_day: 1,
+            pills_dispensed: 210,
+            pills_remaining: 45,
+            missed_doses: 5,
+            last_dispensed_date: '2025-09-15',
+            created_at: '2025-08-20T09:00:00Z'
+        },
+        {
+            regimen_drug_id: 'reg_drug_003',
+            regimen_id: 'regimen_003',
+            medication_id: 'med_002',
+            drug_name: 'Efavirenz 600mg',
+            dosage: '1 tablet',
+            pills_per_day: 1,
+            pills_dispensed: 90,
+            pills_remaining: 0,
+            missed_doses: 0,
+            last_dispensed_date: '2025-08-01',
+            created_at: '2025-07-01T08:00:00Z'
+        }
+    ],
+
+    // Education Modules (legacy naming, maps to learning_modules)
+    educationModules: [
+        {
+            id: 1,
+            title: 'Understanding HIV and AIDS',
+            content: 'Basic information about HIV/AIDS',
+            category: 'basics',
+            readTime: '10 min'
+        }
+    ],
+
+    // Satisfaction Surveys (legacy naming, maps to survey_responses)
+    satisfactionSurveys: [
+        {
+            id: 1,
+            patientId: 1,
+            facilityId: 1,
+            overallSatisfaction: 'happy',
+            staffFriendliness: 5,
+            waitTime: 4,
+            facilityCleanliness: 5,
+            wouldRecommend: 'yes',
+            comments: 'Excellent service',
+            submittedAt: '2025-10-15T16:00:00Z'
+        }
+    ],
+
+    // HTS Sessions (legacy naming, maps to hts_sessions)
+    htsSessions: [
+        {
+            id: 1,
+            patientId: 1,
+            testerId: 3,
+            facilityId: 1,
+            testDate: '2025-09-01',
+            testResult: 'positive',
+            linkedToCare: true
+        }
+    ],
+
+    // Counseling Sessions (legacy naming, maps to counseling_sessions)
+    counselingSessions: [
+        {
+            id: 1,
+            patientId: 1,
+            counselorId: 4,
+            facilityId: 1,
+            sessionDate: '2025-10-01',
+            sessionType: 'adherence',
+            notes: 'Discussed medication adherence'
+        }
+    ],
+
+    // ART Regimens (legacy naming, maps to art_regimens)
+    artRegimens: [
+        {
+            id: 1,
+            patientId: 1,
+            providerId: 2,
+            facilityId: 1,
+            startDate: '2025-09-15',
+            status: 'active'
+        }
+    ],
+
+    // Audit Logs (legacy naming, maps to audit_log)
+    auditLogs: [
+        {
+            id: 1,
+            userId: 2,
+            action: 'CREATE',
+            module: 'PRESCRIPTIONS',
+            entityId: 1,
+            createdAt: '2025-10-01T08:30:00Z'
+        }
+    ],
+
+    // Lab Tests (legacy naming, maps to lab_results)
+    labTests: [
+        {
+            id: 1,
+            patientId: 1,
+            testType: 'CD4 Count',
+            result: '450 cells/µL',
+            testDate: '2025-09-01',
+            status: 'completed'
+        }
     ]
 };
 
@@ -2715,6 +3518,22 @@ function initializeMockData() {
         if (MockData.patient_risk_scores) localStorage.setItem('patient_risk_scores', JSON.stringify(MockData.patient_risk_scores));
         if (MockData.survey_metrics) localStorage.setItem('survey_metrics', JSON.stringify(MockData.survey_metrics));
         if (MockData.dashboard_cache) localStorage.setItem('dashboard_cache', JSON.stringify(MockData.dashboard_cache));
+        
+        // New tables added for complete database alignment
+        if (MockData.clinical_visits) localStorage.setItem('clinical_visits', JSON.stringify(MockData.clinical_visits));
+        if (MockData.vital_signs) localStorage.setItem('vital_signs', JSON.stringify(MockData.vital_signs));
+        if (MockData.prescription_items) localStorage.setItem('prescription_items', JSON.stringify(MockData.prescription_items));
+        if (MockData.medication_inventory) localStorage.setItem('medication_inventory', JSON.stringify(MockData.medication_inventory));
+        if (MockData.medication_reminders) localStorage.setItem('medication_reminders', JSON.stringify(MockData.medication_reminders));
+        if (MockData.counseling_sessions) localStorage.setItem('counseling_sessions', JSON.stringify(MockData.counseling_sessions));
+        if (MockData.hts_sessions) localStorage.setItem('hts_sessions', JSON.stringify(MockData.hts_sessions));
+        if (MockData.audit_log) localStorage.setItem('audit_log', JSON.stringify(MockData.audit_log));
+        if (MockData.vaccination_records) localStorage.setItem('vaccination_records', JSON.stringify(MockData.vaccination_records));
+        if (MockData.survey_responses) localStorage.setItem('survey_responses', JSON.stringify(MockData.survey_responses));
+        if (MockData.learning_modules) localStorage.setItem('learning_modules', JSON.stringify(MockData.learning_modules));
+        if (MockData.art_regimens) localStorage.setItem('art_regimens', JSON.stringify(MockData.art_regimens));
+        if (MockData.art_regimen_drugs) localStorage.setItem('art_regimen_drugs', JSON.stringify(MockData.art_regimen_drugs));
+        
         localStorage.setItem('hiv_platform_initialized', 'true');
     }
 }
